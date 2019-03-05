@@ -1,21 +1,21 @@
 sudo: false
 language: node_js
 cache:
-  directories:
-    - node_modules
+  - npm
+  - yarn
 notifications:
   email: true
 node_js:
   - '8'
-before_script:
-  - npm prune
+install:
+  - yarn --frozen-lockfile
 script:
-  - npm run ban -- -f
+  - yarn ban -- -f
   - ./next-update-travis.sh
-  - npm run lint
-  - npm test
+  - yarn lint
+  - yarn test
 after_success:
-  - DEBUG=simple npm run semantic-release
+  - DEBUG=simple yarn semantic-release
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
